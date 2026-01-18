@@ -29,6 +29,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         /* --- БЛОК 1: ІНСТРУМЕНТ (КАРТКА) --- */
@@ -80,7 +81,7 @@
 
         textarea {
             width: 100%;
-            height: 300px; /* Високі зручні поля */
+            height: 300px;
             padding: 15px;
             border: 2px solid var(--border);
             border-radius: 10px;
@@ -88,7 +89,7 @@
             line-height: 1.5;
             resize: vertical;
             box-sizing: border-box;
-            font-family: 'Courier New', Courier, monospace; /* Моноширинний шрифт для точності */
+            font-family: 'Courier New', Courier, monospace;
             transition: border-color 0.2s;
         }
 
@@ -97,7 +98,7 @@
             outline: none;
         }
 
-        /* Кнопка копіювання - Велика і помітна */
+        /* Кнопка копіювання */
         .actions {
             margin-top: 25px;
             display: flex;
@@ -134,12 +135,12 @@
             max-width: 800px;
             line-height: 1.6;
             color: #444;
+            flex-grow: 1; /* Притискає футер до низу */
         }
 
         .info-section h2 { color: var(--primary); margin-top: 30px; }
         .info-section h3 { margin-top: 20px; }
         
-        /* Гарна таблиця */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -156,19 +157,46 @@
 
         /* Мобільна адаптація */
         @media (max-width: 700px) {
-            .io-container { grid-template-columns: 1fr; gap: 15px; } /* На телефоні поля одне під одним */
+            .io-container { grid-template-columns: 1fr; gap: 15px; }
             textarea { height: 150px; }
             .tool-card { padding: 20px; }
         }
         
+        /* --- FOOTER --- */
         footer {
-            margin-top: 50px;
+            margin-top: 60px;
+            width: 100%;
+            padding: 30px 0;
+            border-top: 1px solid #e1e4e8;
             text-align: center;
-            font-size: 13px;
-            color: #888;
-            padding-bottom: 20px;
+            font-size: 14px;
+            color: #666;
         }
-        footer a { color: var(--primary); text-decoration: none; font-weight: bold; }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .developer-info {
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .promo-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dashed var(--accent);
+            padding-bottom: 2px;
+            transition: color 0.2s;
+        }
+        
+        .promo-link a:hover {
+            color: #219150;
+            border-bottom-style: solid;
+        }
     </style>
 </head>
 <body>
@@ -227,8 +255,17 @@
     </div>
 
     <footer>
-        <p>© 2026. Працює локально у вашому браузері.</p>
-        <p>Корисне: <a href="https://serhiiudowenko.github.io/dovidniktck/">📘 Довідник ТЦК та СП</a></p>
+        <div class="footer-content">
+            <div class="developer-info">
+                👨‍💻 Розробка та підтримка: <strong>Serhii Udowenko</strong>
+            </div>
+            <div class="promo-link">
+                🔗 Корисний сервіс: <a href="https://serhiiudowenko.github.io/dovidniktck/" target="_blank">📘 Довідник контактів ТЦК та СП</a>
+            </div>
+            <div style="margin-top: 10px; font-size: 12px; color: #999;">
+                © 2026. Працює локально. Дані не зберігаються.
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -248,7 +285,6 @@
         function processText(text) {
             let trans = uaToLat(text);
             let words = trans.split(' ').filter(w => w.length > 0);
-            // Робимо перше слово (Прізвище) UpperCase, якщо це схоже на ПІБ
             if (words.length > 0) words[0] = words[0].toUpperCase();
             return words.join(' ').replace(/[^a-zA-Z\s\-]/g, '');
         }
