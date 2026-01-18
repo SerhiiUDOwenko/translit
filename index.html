@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Транслітерація онлайн: Паспортний стандарт України (КМУ 2010)</title>
+    <meta name="description" content="Безкоштовний онлайн сервіс транслітерації українських прізвищ латиницею для закордонного паспорта. Офіційний стандарт КМУ №55. Миттєва перевірка.">
+    <meta name="keywords" content="транслітерація, закордонний паспорт, переклад прізвища, КМУ 2010, транслітерація онлайн, українська латиниця">
+    <meta name="author" content="Serhii Udowenko">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <style>
+        /* Той самий стиль, що й раніше, трохи покращений для мобільних */
+        :root { --bg-color: #f4f4f9; --card-bg: #ffffff; --text-color: #333; --accent: #2c3e50; --btn-color: #27ae60; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; display: flex; justify-content: center; min-height: 100vh; padding: 20px; box-sizing: border-box;}
+        .container { background-color: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 800px; margin-top: 20px;}
+        h1 { text-align: center; color: var(--accent); margin-bottom: 1rem; font-size: 1.5rem; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .container { padding: 1rem; } }
+        .box { display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 5px; color: #666; font-size: 0.9rem;}
+        textarea { width: 100%; height: 200px; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; resize: none; box-sizing: border-box; }
+        textarea:focus { border-color: var(--accent); outline: none; }
+        .btn-container { margin-top: 20px; text-align: center; }
+        button { background-color: var(--btn-color); color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; max-width: 300px;}
+        button:hover { background-color: #219150; }
+        .footer { margin-top: 30px; text-align: center; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 10px;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🇺🇦 Паспортна Транслітерація</h1>
+    <p style="text-align: center; color: #666; font-size: 0.9rem;">
+        Вставте список українських прізвищ. <br>Система автоматично переведе їх у Latynycya (OFFICIAL UKRAINE PASSPORT STYLE).
+    </p>
+
+    <div class="grid">
+        <div class="box">
+            <label>Введіть прізвища (Кирилиця)</label>
+            <textarea id="input" placeholder="Шевченко Тарас&#10;Леся Українка"></textarea>
+        </div>
+        <div class="box">
+            <label>Результат (Passport Style)</label>
+            <textarea id="output" readonly onclick="this.select()"></textarea>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button onclick="copyToClipboard()">📋 Копіювати результат</button>
+    </div>
+
+    <div class="footer">
+        © 2026. Працює локально. Дані не зберігаються. <br> Developed by Serhii.
+    </div>
+</div>
+
+<script>
+    const inputArea = document.getElementById('input');
+    const outputArea = document.getElementById('output');
+
+    inputArea.addEventListener('input', () => {
+        const text = inputArea.value;
+        const lines = text.split('\n');
+        const resultLines = lines.map(line => {
+            if (!line.trim()) return "";
+            return processText(line);
+        });
+        outputArea.value = resultLines.join('\n');
+    });
+
+    function processText(text) {
+        let trans = uaToLat(text);
+        let words = trans.split(' ').filter(w => w.length > 0);
+        if (words.length > 0) words[0] = words[0].toUpperCase();
+        return words.join(' ').replace(/[^a-zA-Z\s\-]/g, '');
+    }
+
+    function uaToLat(text) {
+        const mapping = {
+            'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'H', 'Ґ': 'G', 'Д': 'D', 'Е': 'E',
+            'Ж': 'Zh', 'З': 'Z', 'И': 'Y', 'І': 'I', 'К': 'K', 'Л': 'L', 'М': 'M',
+            'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+            'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch',
+            'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e',
+            'ж': 'zh', 'з': 'z', 'и': 'y', 'і': 'i', 'к': 'k', 'л': 'l', 'м': 'm',
+            'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+            'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
+            'ь': '', '’': '', "'": '', '`': '' 
+        };
+        let result = text.replace(/Зг/g, 'Zgh').replace(/зг/g, 'zgh');
+        const specialChars = {
+            'Є': ['Ye', 'Ie'], 'Ї': ['Yi', 'I'], 'Й': ['Y', 'I'], 'Ю': ['Yu', 'Iu'], 'Я': ['Ya', 'Ia'],
+            'є': ['ye', 'ie'], 'ї': ['yi', 'i'], 'й': ['y', 'i'], 'ю': ['yu', 'iu'], 'я': ['ya', 'ia']
+        };
+        let out = "";
+        for (let i = 0; i < result.length; i++) {
+            let char = result[i];
+            let prev = (i > 0) ? result[i - 1] : " ";
+            if (specialChars[char]) {
+                let isStart = /[\s\-]/.test(prev) || i === 0; 
+                out += isStart ? specialChars[char][0] : specialChars[char][1];
+            } else if (mapping[char] !== undefined) {
+                out += mapping[char];
+            } else {
+                out += char; 
+            }
+        }
+        return out;
+    }
+
+    function copyToClipboard() {
+        outputArea.select();
+        document.execCommand('copy');
+        alert('Скопійовано!');
+    }
+</script>
+</body>
+</html>
