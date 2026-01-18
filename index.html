@@ -3,172 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="gaAhrKCvvuIebhmtDqIxugbYQhIBBIKB7Shis_XwTOk" />
-    
-    <title>Транслітерація онлайн: Паспортний стандарт України (КМУ 2010)</title>
-    <meta name="description" content="Безкоштовний онлайн сервіс транслітерації українських прізвищ латиницею для закордонного паспорта. Офіційний стандарт КМУ №55. Миттєва перевірка.">
-    <meta name="keywords" content="транслітерація, закордонний паспорт, переклад прізвища, КМУ 2010, транслітерація онлайн, українська латиниця">
-    <meta name="author" content="Serhii Udowenko">
+    <title>Транслітерація Паспортів (КМУ 2010)</title>
+    <meta name="description" content="Офіційна онлайн транслітерація українських прізвищ латиницею. Стандарт КМУ 2010 для закордонних паспортів.">
 
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2c3e50">
-    <link rel="apple-touch-icon" href="icon-192.png">
 
     <style>
-        /* Той самий стиль, що й раніше, трохи покращений для мобільних */
-        :root { --bg-color: #f4f4f9; --card-bg: #ffffff; --text-color: #333; --accent: #2c3e50; --btn-color: #27ae60; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; display: flex; justify-content: center; min-height: 100vh; padding: 20px; box-sizing: border-box;}
-        .container { background-color: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 800px; margin-top: 20px;}
-        h1 { text-align: center; color: var(--accent); margin-bottom: 1rem; font-size: 1.5rem; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .container { padding: 1rem; } }
-        .box { display: flex; flex-direction: column; }
-        label { font-weight: bold; margin-bottom: 5px; color: #666; font-size: 0.9rem;}
-        textarea { width: 100%; height: 200px; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; resize: none; box-sizing: border-box; }
-        textarea:focus { border-color: var(--accent); outline: none; }
-        .btn-container { margin-top: 20px; text-align: center; }
-        button { background-color: var(--btn-color); color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; max-width: 300px;}
-        button:hover { background-color: #219150; }
-        .footer { margin-top: 30px; text-align: center; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 10px;}
+        :root {
+            --primary: #2c3e50;      /* Темно-синій */
+            --accent: #27ae60;       /* Зелений для кнопок */
+            --bg: #f0f2f5;           /* Світло-сірий фон */
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --text-light: #666;
+            --border: #dfe1e5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- БЛОК 1: ІНСТРУМЕНТ (КАРТКА) --- */
+        .tool-card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        /* Поля вводу поруч */
+        .io-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .io-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px; /* Високі зручні поля */
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            resize: vertical;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace; /* Моноширинний шрифт для точності */
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        /* Кнопка копіювання - Велика і помітна */
+        .actions {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        button.btn-copy {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+            transition: transform 0.1s, background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button.btn-copy:hover {
+            background-color: #219150;
+            transform: translateY(-2px);
+        }
+
+        button.btn-copy:active {
+            transform: translateY(0);
+        }
+
+        /* --- БЛОК 2: SEO ТЕКСТ (ЗНИЗУ) --- */
+        .info-section {
+            max-width: 800px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .info-section h2 { color: var(--primary); margin-top: 30px; }
+        .info-section h3 { margin-top: 20px; }
+        
+        /* Гарна таблиця */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-top: 15px;
+        }
+        th { background: var(--primary); color: white; padding: 12px; text-align: left; }
+        td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+
+        /* Мобільна адаптація */
+        @media (max-width: 700px) {
+            .io-container { grid-template-columns: 1fr; gap: 15px; } /* На телефоні поля одне під одним */
+            textarea { height: 150px; }
+            .tool-card { padding: 20px; }
+        }
+        
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            padding-bottom: 20px;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🇺🇦 Паспортна Транслітерація</h1>
-    <p style="text-align: center; color: #666; font-size: 0.9rem;">
-        Вставте список українських прізвищ. <br>Система автоматично переведе їх у Latynycya (OFFICIAL UKRAINE PASSPORT STYLE).
-    </p>
+    <div class="tool-card">
+        <h1>🇺🇦 Паспортна Транслітерація</h1>
+        <div class="subtitle">Миттєвий переклад прізвищ за офіційним стандартом КМУ 2010</div>
 
-    <div class="grid">
-        <div class="box">
-            <label>Введіть прізвища (Кирилиця)</label>
-            <textarea id="input" placeholder="Шевченко Тарас&#10;Леся Українка"></textarea>
+        <div class="io-container">
+            <div class="io-box">
+                <label for="input">Кирилиця (Вставте список)</label>
+                <textarea id="input" placeholder="Шевченко Тарас&#10;Леся Українка&#10;Іваненко Іван" spellcheck="false"></textarea>
+            </div>
+            <div class="io-box">
+                <label for="output">Latynycya (Passport Style)</label>
+                <textarea id="output" readonly spellcheck="false"></textarea>
+            </div>
         </div>
-        <div class="box">
-            <label>Результат (Passport Style)</label>
-            <textarea id="output" readonly onclick="this.select()"></textarea>
+
+        <div class="actions">
+            <button class="btn-copy" onclick="copyToClipboard()">
+                <span>📋</span> Скопіювати результат
+            </button>
         </div>
     </div>
 
-    <div class="btn-container">
-        <button onclick="copyToClipboard()">📋 Копіювати результат</button>
-    </div>
+    <div class="info-section">
+        <h2>Чому важлива правильна транслітерація?</h2>
+        <p>
+            Офіційна <strong>транслітерація українського алфавіту латиницею</strong> затверджена Постановою Кабінету Міністрів України №55.
+            Використання цього стандарту є обов'язковим при оформленні закордонних паспортів, ID-карток та водійських прав.
+        </p>
 
-    <div class="footer">
-        © 2026. Працює локально. Дані не зберігаються. <br> Developed by Serhii.
-    </div>
-</div>
-<div class="container" style="margin-top: 30px;">
-    <h2>ℹ️ Чому важлива правильна транслітерація?</h2>
-    <p>
-        Офіційна <strong>транслітерація українського алфавіту латиницею</strong> затверджена Постановою Кабінету Міністрів України №55 від 27 січня 2010 року. 
-        Використання цього стандарту є обов'язковим при оформленні:
-    </p>
-    <ul>
-        <li>Закордонного паспорта (ID-картки);</li>
-        <li>Водійських прав міжнародного зразка;</li>
-        <li>Банківських карток та рахунків (SWIFT);</li>
-        <li>Міжнародних поштових відправлень.</li>
-    </ul>
-    <p>
-        Помилка навіть в одну літеру (наприклад, <em>Yuliia</em> замість <em>Iuliia</em>) може призвести до проблем з ідентифікацією особи за кордоном або блокування банківських переказів.
-    </p>
-
-    <h3>Таблиця транслітерації (Стандарт КМУ 2010)</h3>
-    <p>Цей онлайн інструмент використовує наступні правила заміни:</p>
-    
-    <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <h3>Таблиця транслітерації (Скорочена)</h3>
+        <table>
             <thead>
-                <tr style="background: #2c3e50; color: white;">
-                    <th style="padding: 10px; border: 1px solid #ddd;">Літера</th>
-                    <th style="padding: 10px; border: 1px solid #ddd;">Латиниця</th>
-                    <th style="padding: 10px; border: 1px solid #ddd;">Приклад</th>
+                <tr>
+                    <th>Літера</th>
+                    <th>Латиниця</th>
+                    <th>Примітка</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">А а</td><td style="padding: 8px; border: 1px solid #ddd;">A a</td><td style="padding: 8px; border: 1px solid #ddd;">Alushta</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">Б б</td><td style="padding: 8px; border: 1px solid #ddd;">B b</td><td style="padding: 8px; border: 1px solid #ddd;">Borshchahivka</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">В в</td><td style="padding: 8px; border: 1px solid #ddd;">V v</td><td style="padding: 8px; border: 1px solid #ddd;">Vinnytsia</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">Г г</td><td style="padding: 8px; border: 1px solid #ddd;">H h</td><td style="padding: 8px; border: 1px solid #ddd;">Hadiach</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">Ґ ґ</td><td style="padding: 8px; border: 1px solid #ddd;">G g</td><td style="padding: 8px; border: 1px solid #ddd;">Gorgany</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">Д д</td><td style="padding: 8px; border: 1px solid #ddd;">D d</td><td style="padding: 8px; border: 1px solid #ddd;">Doneck</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">Е е</td><td style="padding: 8px; border: 1px solid #ddd;">E e</td><td style="padding: 8px; border: 1px solid #ddd;">Rivne</td></tr>
-                <tr style="background: #f9f9f9;"><td style="padding: 8px; border: 1px solid #ddd;"><strong>Є є</strong></td><td style="padding: 8px; border: 1px solid #ddd;"><strong>Ye</strong> (на початку)<br><strong>ie</strong> (в інших позиціях)</td><td style="padding: 8px; border: 1px solid #ddd;">Yevhen, Haievych</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">Ж ж</td><td style="padding: 8px; border: 1px solid #ddd;">Zh zh</td><td style="padding: 8px; border: 1px solid #ddd;">Zhytomyr</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">З з</td><td style="padding: 8px; border: 1px solid #ddd;">Z z</td><td style="padding: 8px; border: 1px solid #ddd;">Zakarpattia</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">И и</td><td style="padding: 8px; border: 1px solid #ddd;">Y y</td><td style="padding: 8px; border: 1px solid #ddd;">Medwyn</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">І і</td><td style="padding: 8px; border: 1px solid #ddd;">I i</td><td style="padding: 8px; border: 1px solid #ddd;">Irvine</td></tr>
-                <tr style="background: #f9f9f9;"><td style="padding: 8px; border: 1px solid #ddd;"><strong>Ї ї</strong></td><td style="padding: 8px; border: 1px solid #ddd;"><strong>Yi</strong> (на початку)<br><strong>i</strong> (в інших позиціях)</td><td style="padding: 8px; border: 1px solid #ddd;">Yizhakkevych, Kadyivka</td></tr>
-                <tr style="background: #f9f9f9;"><td style="padding: 8px; border: 1px solid #ddd;"><strong>Й й</strong></td><td style="padding: 8px; border: 1px solid #ddd;"><strong>Y</strong> (на початку)<br><strong>i</strong> (в інших позиціях)</td><td style="padding: 8px; border: 1px solid #ddd;">Yosypenko, Stryi</td></tr>
-                <tr><td style="padding: 8px; border: 1px solid #ddd;">К к</td><td style="padding: 8px; border: 1px solid #ddd;">K k</td><td style="padding: 8px; border: 1px solid #ddd;">Kyiv</td></tr>
-                <tr style="background: #f9f9f9;"><td style="padding: 8px; border: 1px solid #ddd;"><strong>Ю ю</strong></td><td style="padding: 8px; border: 1px solid #ddd;"><strong>Yu</strong> (на початку)<br><strong>iu</strong> (в інших позиціях)</td><td style="padding: 8px; border: 1px solid #ddd;">Yurii, Koriukivka</td></tr>
-                 <tr style="background: #f9f9f9;"><td style="padding: 8px; border: 1px solid #ddd;"><strong>Я я</strong></td><td style="padding: 8px; border: 1px solid #ddd;"><strong>Ya</strong> (на початку)<br><strong>ia</strong> (в інших позиціях)</td><td style="padding: 8px; border: 1px solid #ddd;">Yago, Kropyvnytskyi</td></tr>
+                <tr><td>А а</td><td>A a</td><td></td></tr>
+                <tr><td>Б б</td><td>B b</td><td></td></tr>
+                <tr><td>В в</td><td>V v</td><td></td></tr>
+                <tr><td>Г г</td><td>H h</td><td>Hadiach</td></tr>
+                <tr><td>Ґ ґ</td><td>G g</td><td>Gorgany</td></tr>
+                <tr><td>Є є</td><td>Ye / ie</td><td><strong>Ye</strong> на початку слова, <strong>ie</strong> в інших позиціях</td></tr>
+                <tr><td>Ї ї</td><td>Yi / i</td><td><strong>Yi</strong> на початку слова, <strong>i</strong> в інших позиціях</td></tr>
+                <tr><td>Й й</td><td>Y / i</td><td><strong>Y</strong> на початку слова, <strong>i</strong> в інших позиціях</td></tr>
+                <tr><td>Ю ю</td><td>Yu / iu</td><td><strong>Yu</strong> на початку слова, <strong>iu</strong> в інших позиціях</td></tr>
+                <tr><td>Я я</td><td>Ya / ia</td><td><strong>Ya</strong> на початку слова, <strong>ia</strong> в інших позиціях</td></tr>
             </tbody>
         </table>
     </div>
-</div>
 
-<script>
-    const inputArea = document.getElementById('input');
-    const outputArea = document.getElementById('output');
+    <footer>
+        <p>© 2026. Працює локально у вашому браузері.</p>
+        <p>Корисне: <a href="https://serhiiudowenko.github.io/dovidniktck/">📘 Довідник ТЦК та СП</a></p>
+    </footer>
 
-    inputArea.addEventListener('input', () => {
-        const text = inputArea.value;
-        const lines = text.split('\n');
-        const resultLines = lines.map(line => {
-            if (!line.trim()) return "";
-            return processText(line);
+    <script>
+        const inputArea = document.getElementById('input');
+        const outputArea = document.getElementById('output');
+
+        inputArea.addEventListener('input', () => {
+            const text = inputArea.value;
+            const lines = text.split('\n');
+            const resultLines = lines.map(line => {
+                if (!line.trim()) return "";
+                return processText(line);
+            });
+            outputArea.value = resultLines.join('\n');
         });
-        outputArea.value = resultLines.join('\n');
-    });
 
-    function processText(text) {
-        let trans = uaToLat(text);
-        let words = trans.split(' ').filter(w => w.length > 0);
-        if (words.length > 0) words[0] = words[0].toUpperCase();
-        return words.join(' ').replace(/[^a-zA-Z\s\-]/g, '');
-    }
-
-    function uaToLat(text) {
-        const mapping = {
-            'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'H', 'Ґ': 'G', 'Д': 'D', 'Е': 'E',
-            'Ж': 'Zh', 'З': 'Z', 'И': 'Y', 'І': 'I', 'К': 'K', 'Л': 'L', 'М': 'M',
-            'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
-            'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch',
-            'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e',
-            'ж': 'zh', 'з': 'z', 'и': 'y', 'і': 'i', 'к': 'k', 'л': 'l', 'м': 'm',
-            'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
-            'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
-            'ь': '', '’': '', "'": '', '`': '' 
-        };
-        let result = text.replace(/Зг/g, 'Zgh').replace(/зг/g, 'zgh');
-        const specialChars = {
-            'Є': ['Ye', 'Ie'], 'Ї': ['Yi', 'I'], 'Й': ['Y', 'I'], 'Ю': ['Yu', 'Iu'], 'Я': ['Ya', 'Ia'],
-            'є': ['ye', 'ie'], 'ї': ['yi', 'i'], 'й': ['y', 'i'], 'ю': ['yu', 'iu'], 'я': ['ya', 'ia']
-        };
-        let out = "";
-        for (let i = 0; i < result.length; i++) {
-            let char = result[i];
-            let prev = (i > 0) ? result[i - 1] : " ";
-            if (specialChars[char]) {
-                let isStart = /[\s\-]/.test(prev) || i === 0; 
-                out += isStart ? specialChars[char][0] : specialChars[char][1];
-            } else if (mapping[char] !== undefined) {
-                out += mapping[char];
-            } else {
-                out += char; 
-            }
+        function processText(text) {
+            let trans = uaToLat(text);
+            let words = trans.split(' ').filter(w => w.length > 0);
+            // Робимо перше слово (Прізвище) UpperCase, якщо це схоже на ПІБ
+            if (words.length > 0) words[0] = words[0].toUpperCase();
+            return words.join(' ').replace(/[^a-zA-Z\s\-]/g, '');
         }
-        return out;
-    }
 
-    function copyToClipboard() {
-        outputArea.select();
-        document.execCommand('copy');
-        alert('Скопійовано!');
-    }
-</script>
+        function uaToLat(text) {
+            const mapping = {
+                'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'H', 'Ґ': 'G', 'Д': 'D', 'Е': 'E',
+                'Ж': 'Zh', 'З': 'Z', 'И': 'Y', 'І': 'I', 'К': 'K', 'Л': 'L', 'М': 'M',
+                'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+                'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch',
+                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e',
+                'ж': 'zh', 'з': 'z', 'и': 'y', 'і': 'i', 'к': 'k', 'л': 'l', 'м': 'm',
+                'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+                'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
+                'ь': '', '’': '', "'": '', '`': '' 
+            };
+            let result = text.replace(/Зг/g, 'Zgh').replace(/зг/g, 'zgh');
+            const specialChars = {
+                'Є': ['Ye', 'Ie'], 'Ї': ['Yi', 'I'], 'Й': ['Y', 'I'], 'Ю': ['Yu', 'Iu'], 'Я': ['Ya', 'Ia'],
+                'є': ['ye', 'ie'], 'ї': ['yi', 'i'], 'й': ['y', 'i'], 'ю': ['yu', 'iu'], 'я': ['ya', 'ia']
+            };
+            let out = "";
+            for (let i = 0; i < result.length; i++) {
+                let char = result[i];
+                let prev = (i > 0) ? result[i - 1] : " ";
+                if (specialChars[char]) {
+                    let isStart = /[\s\-]/.test(prev) || i === 0; 
+                    out += isStart ? specialChars[char][0] : specialChars[char][1];
+                } else if (mapping[char] !== undefined) {
+                    out += mapping[char];
+                } else {
+                    out += char; 
+                }
+            }
+            return out;
+        }
+
+        function copyToClipboard() {
+            outputArea.select();
+            document.execCommand('copy');
+            const btn = document.querySelector('.btn-copy');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>✅</span> Скопійовано!';
+            btn.style.backgroundColor = '#219150';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.backgroundColor = '';
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
